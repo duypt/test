@@ -1,8 +1,11 @@
 class PollsController < ApplicationController
-  unloadable
+   unloadable
+
+   before_filter :find_project, :authorize, :only => :index
 
   def index
-    @polls = Poll.find(:all)
+    # @project = Project.find(params[:project_id])
+  	@polls = Poll.find(:all) # @project.polls
   end
 
   def vote
@@ -12,5 +15,12 @@ class PollsController < ApplicationController
       flash[:notice] = 'Vote saved.'
       redirect_to :action => 'index'
     end
+  end
+
+  private
+
+  def find_project
+    # @project variable must be set before calling the authorize filter
+    @project = Project.find(params[:project_id])
   end
 end
