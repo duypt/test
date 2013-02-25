@@ -1,8 +1,20 @@
+if Rails::VERSION::MAJOR >= 3
+  ActionDispatch::Callbacks.to_prepare do
+    # use require_dependency if you plan to utilize development mode
+    # require 'boards_watchers_patches'
+  end
+else
+  Dispatcher.to_prepare BW_AssetHelpers::PLUGIN_NAME do
+    # use require_dependency if you plan to utilize development mode
+    # require 'boards_watchers_patches'
+  end
+end
+
 Redmine::Plugin.register :polls do
   name 'Polls plugin'
   author 'DuyPT'
   description 'This is a sample Plugin'
-  version '0.0.2'
+  version '0.0.3'
   project_module :polls do
    	permission :view_polls, :polls => :index
    	permission :vote_polls, :polls => :vote
