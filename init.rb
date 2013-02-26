@@ -1,8 +1,10 @@
+require 'Redmine'
+
 Redmine::Plugin.register :polls do
   name 'Polls plugin'
   author 'DuyPT'
   description 'This is a sample Plugin'
-  version '0.0.2'
+  version '0.0.3'
   project_module :polls do
    	permission :view_polls, :polls => :index
    	permission :vote_polls, :polls => :vote
