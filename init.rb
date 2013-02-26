@@ -1,4 +1,17 @@
-require 'Redmine'
+# Including dispatcher.rb in case of Rails 2.x
+require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
+
+if Rails::VERSION::MAJOR >= 3
+  ActionDispatch::Callbacks.to_prepare do
+    # use require_dependency if you plan to utilize development mode
+    require 'redmine'
+  end
+else
+  Dispatcher.to_prepare BW_AssetHelpers::PLUGIN_NAME do
+    # use require_dependency if you plan to utilize development mode
+    require 'redmine'
+  end
+end
 
 Redmine::Plugin.register :polls do
   name 'Polls plugin'
